@@ -91,7 +91,7 @@ Digit/Character converter:
 
 .. code:: python
 
-    >>> from persiantools import characters, digits
+    >>> from persiantools import characters, digits, utils
 
     >>> digits.en_to_fa("0987654321")
     '۰۹۸۷۶۵۴۳۲۱'
@@ -101,10 +101,41 @@ Digit/Character converter:
     
     >>> digits.fa_to_en("۰۹۸۷۶۵۴۳۲۱")
     '0987654321'
-    
+
+    >>> digits.ar_to_en("٠٩٨٧٦٥٤٣٢١")
+    '0987654321'
+
     >>> digits.fa_to_ar("۰۹۸۷۶۵۴۳۲۱") 
     '٠٩٨٧٦٥٤٣٢١'
-    
+
+    >>> digits.en_to_ar("0987654321")
+    '٠٩٨٧٦٥٤٣٢١'
+
+
+    >>> digits.to_fa("0987٦٥٤3۲۱")
+    '۰۹۸۷۶۵۴۳۲۱'
+
+    >>> digits.to_en("0987٦٥٤3۲۱")
+    '0987654321'
+
+    >>> digits.to_ar("0987٦٥٤3۲۱")
+    '٠٩٨٧٦٥٤٣٢١'
+
+    >>> utils.is_valid_national_id('1234567890')
+    False
+
+    >>> utils.generate_random_national_id()
+    '3934540414'
+
+    >>> utils.clean_mobile_number('+989366926847')
+    '09366926847'
+
+    >>> utils.clean_mobile_number('9366926847', add_98=True, add_plus=True)
+    '+989366926847'
+
+    >>> utils.is_valid_mobile_number('989366926847')
+    True
+
     >>> characters.ar_to_fa("راك")
     'راک'
     

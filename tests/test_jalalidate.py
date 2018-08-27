@@ -62,12 +62,8 @@ class TestJalaliDate(TestCase):
         self.assertEqual(JalaliDate.fromtimestamp(578707200), JalaliDate(1367, 2, 14))
         self.assertEqual(JalaliDate.fromtimestamp(1508371200), JalaliDate(1396, 7, 27))
 
-        try:
+        with self.assertRaises(ValueError):
             JalaliDate(1400, 1, 1, "us")
-        except ValueError:
-            assert True
-        else:
-            assert False
 
     def test_leap(self):
         self.assertEqual(JalaliDate.is_leap(1358), True)

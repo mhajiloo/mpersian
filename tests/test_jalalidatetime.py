@@ -2,7 +2,7 @@
 import os
 import pickle
 import time
-from datetime import datetime, date, timedelta, time as _time, tzinfo
+from datetime import datetime, date, timedelta, time as _time
 from unittest import TestCase
 
 import pytz
@@ -30,19 +30,11 @@ class TestJalaliDate(TestCase):
                          JalaliDateTime(1367, 2, 14, 4, 30, 0, 0, pytz.utc))
         self.assertEqual(JalaliDateTime.utcfromtimestamp(578723400), JalaliDateTime(1367, 2, 14, 4, 30, 0, 0))
 
-        try:
+        with self.assertRaises(ValueError):
             JalaliDateTime._check_time_fields(20, 1, 61, 1000)
-        except ValueError:
-            assert True
-        else:
-            assert False
 
-        try:
+        with self.assertRaises(TypeError):
             JalaliDateTime._check_time_fields("20", 1, 61, 1000)
-        except TypeError:
-            assert True
-        else:
-            assert False
 
     def test_others(self):
         self.assertTrue(JalaliDateTime.fromtimestamp(time.time()) <= JalaliDateTime.now())
@@ -116,8 +108,11 @@ class TestJalaliDate(TestCase):
         os.remove("save.p")
 
     def test_format(self):
-        self.assertEqual(JalaliDateTime(1369, 7, 1, 14, 0, 10, 0, pytz.utc).strftime("%X %p %z %Z"), "14:00:10 PM +0000 UTC")
-        self.assertEqual(JalaliDateTime(1369, 7, 1, 14, 0, 10, 0, pytz.utc).strftime("%c"), "Yekshanbeh 01 Mehr 1369 14:00:10")
-        self.assertEqual(JalaliDateTime(1369, 7, 1, 11, 0, 10, 553, pytz.utc).strftime("%I:%M:%S.%f %p"), "11:00:10.000553 AM")
-        self.assertEqual(JalaliDateTime(1369, 7, 1, 14, 0, 10, 553, pytz.utc).strftime("%I:%M:%S.%f %p"), "02:00:10.000553 PM")
-
+        self.assertEqual(JalaliDateTime(1369, 7, 1, 14, 0, 10, 0, pytz.utc).strftime("%X %p %z %Z"),
+                         "14:00:10 PM +0000 UTC")
+        self.assertEqual(JalaliDateTime(1369, 7, 1, 14, 0, 10, 0, pytz.utc).strftime("%c"),
+                         "Yekshanbeh 01 Mehr 1369 14:00:10")
+        self.assertEqual(JalaliDateTime(1369, 7, 1, 11, 0, 10, 553, pytz.utc).strftime("%I:%M:%S.%f %p"),
+                         "11:00:10.000553 AM")
+        self.assertEqual(JalaliDateTime(1369, 7, 1, 14, 0, 10, 553, pytz.utc).strftime("%I:%M:%S.%f %p"),
+                         "02:00:10.000553 PM")
