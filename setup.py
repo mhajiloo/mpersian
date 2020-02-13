@@ -41,7 +41,7 @@ setup(
     ],
     keywords="jalali shamsi persian digits characters converter jalalidate "
     "jalalidatetime date datetime jdate jdatetime",
-    url="https://github.com/mhajiloo/persiantools",
+    url="https://github.com/amirhbv/persiantools",
     author="Majid Hajiloo",
     author_email="majid.hajiloo@gmail.com",
     license="MIT",
