@@ -435,7 +435,7 @@ class JalaliDate(object):
 
     def strftime(self, fmt, locale=None):
         if locale is None or locale not in ["fa", "en"]:
-            locale = self._locale
+            locale = self.locale
 
         month_names = MONTH_NAMES_EN if locale == "en" else MONTH_NAMES_FA
         month_names_abbr = MONTH_NAMES_ABBR_EN if locale == "en" else MONTH_NAMES_ABBR_FA
@@ -977,7 +977,10 @@ class JalaliDateTime(JalaliDate):
     def __str__(self):
         return self.isoformat(sep=" ")
 
-    def strftime(self, fmt):
+    def strftime(self, fmt, locale=None):
+        if locale is None or locale not in ["fa", "en"]:
+            locale = self.locale
+
         datetime = self.to_gregorian()
 
         format_time = {
@@ -997,7 +1000,7 @@ class JalaliDateTime(JalaliDate):
 
         result = utils.replace(fmt, format_time)
 
-        result = super(JalaliDateTime, self).strftime(result, "en")
+        result = super(JalaliDateTime, self).strftime(result, locale)
 
         return result
 
