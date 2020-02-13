@@ -997,7 +997,7 @@ class JalaliDateTime(JalaliDate):
 
         result = utils.replace(fmt, format_time)
 
-        result = super(JalaliDateTime, self).strftime(result, "en")
+        result = super(JalaliDateTime, self).strftime(result, self.locale)
 
         return result
 
